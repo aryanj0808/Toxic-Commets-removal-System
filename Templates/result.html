@@ -1,0 +1,154 @@
+{%extends 'header.html'%}
+{% load static %}
+
+{% block title%} Result {%endblock title%}
+{%block body%}
+
+<div class="container" style="padding-top:60px;">
+
+    <div class="container mb-3">
+        <div class="textcontent">
+            <h4 style="padding-left:60px;" > Total Comments : {{n}} </h4> 
+            
+          
+    
+            <h4 style="padding-left:100px;"> Toxic Comments :  {{m}}</h4> 
+          
+        </div>
+    </div>
+</div>
+
+<div class="container my-5">
+    <table class="table table-striped" >
+        <thead>
+          <tr>
+            {% comment %} <th scope="col">#</th> {% endcomment %}
+            <th scope="col">Toxic Comments</th>
+          </tr>
+        </thead>
+        <tbody>
+      {% for key,val in res.items  %}
+          <tr >
+            <td style="padding: 30px;">
+              {{val}}
+                  <!-- <div class="form-check float-xl-end">
+                    <input class="form-check-input" type="checkbox" value={{key}} name="checks[]" checked id="checks">
+                    <label class="form-check-label mx-2" for="flexCheckDefault">
+                     Delete
+                    </label>
+                  </div> -->
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+     <!--  <div class="form-check float-xl-end">
+        <input type="checkbox" onClick="toggle(this)" />
+        <label class="form-check-label mx-2" for="flexCheckDefault">
+         Delete All
+        </label>
+      </div> -->
+      <input type="hidden" id="id1" name={{str1}} >
+      <button class="open-button" type="submit" onclick="openForm()">Delete</button>
+      <div class="form-popup" id="myForm">
+        <form action="" Method="POST" class="form-container">
+          <h1>Cred</h1>
+      
+          <label ><b>Token</b></label>
+            {% csrf_token %}
+          <input type="text" placeholder="Enter Token" name="text" required>
+          <div class="field btn">
+            <div class="btn-layer"></div>
+            <input type="submit" name="btn" value="Delete">
+         </div>
+        </form>
+      </div>
+</div>
+<br><br><br>
+<script>
+  function openForm() {
+    a = document.getElementById("id1").name;
+    window.open(a,'_blank')
+    console.log(a)
+    document.getElementById("myForm").style.display = "block";
+  }
+  function toggle(source) {
+    checkboxes = document.getElementsByName('checks[]');
+    for(var i=0, n=checkboxes.length;i<n;i++) {
+      checkboxes[i].checked = source.checked;
+    }
+  }
+  </script>
+<style>
+  body {font-family: Arial, Helvetica, sans-serif;}
+  * {box-sizing: border-box;}
+  
+  /* Button used to open the contact form - fixed at the bottom of the page */
+  .open-button {
+    background-color: #555;
+    color: white;
+    padding: 16px 20px;
+    border: none;
+    cursor: pointer;
+    opacity: 0.8;
+    position: fixed;
+    bottom: 23px;
+    right: 28px;
+    width: 280px;
+  }
+  
+  /* The popup form - hidden by default */
+  .form-popup {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    right: 15px;
+    border: 3px solid #f1f1f1;
+    z-index: 9;
+  }
+  
+  /* Add styles to the form container */
+  .form-container {
+    max-width: 300px;
+    padding: 10px;
+    background-color: white;
+  }
+  
+  /* Full-width input fields */
+  .form-container input[type=text], .form-container input[type=password] {
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    border: none;
+    background: #f1f1f1;
+  }
+  
+  /* When the inputs get focus, do something */
+  .form-container input[type=text]:focus, .form-container input[type=password]:focus {
+    background-color: #ddd;
+    outline: none;
+  }
+  
+  /* Set a style for the submit/login button */
+  .form-container .btn {
+    background-color: #04AA6D;
+    color: white;
+    padding: 16px 20px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    margin-bottom:10px;
+    opacity: 0.8;
+  }
+  
+  /* Add a red background color to the cancel button */
+  .form-container .cancel {
+    background-color: red;
+  }
+  
+  /* Add some hover effects to buttons */
+  .form-container .btn:hover, .open-button:hover {
+    opacity: 1;
+  }
+  </style>
+{% endblock body%}
